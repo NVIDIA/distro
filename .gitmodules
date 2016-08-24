@@ -90,10 +90,6 @@
 	path = exe/env
 	url = https://github.com/torch/env.git
         branch = master
-[submodule "extra/cunnx"]
-	path = extra/cunnx
-        url = https://github.com/nicholas-leonard/cunnx.git
-        branch = master
 [submodule "extra/graph"]
 	path = extra/graph
 	url = https://github.com/torch/graph
