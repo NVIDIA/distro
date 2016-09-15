@@ -27,7 +27,6 @@ $LUA -largcheck  -e "print('argcheck loaded succesfully')"
 $LUA -lgraph     -e "print('graph loaded succesfully')"
 $LUA -lnn        -e "print('nn loaded succesfully')"
 $LUA -lnngraph   -e "print('nngraph loaded succesfully')"
-$LUA -lnnx       -e "print('nnx loaded succesfully')"
 $LUA -lthreads   -e "print('threads loaded succesfully')"
 
 th -ltorch -e "torch.test()"
@@ -37,9 +36,6 @@ if [ $(basename $LUA) = "luajit" ]
 then
     $LUA -lsundown         -e "print('sundown loaded succesfully')"
     $LUA -lsignal          -e "print('signal loaded succesfully')"
-    $LUA -lgraphicsmagick  -e "print('graphicsmagick loaded succesfully')"
-    $LUA -lfftw3           -e "print('fftw3 loaded succesfully')"
-    $LUA -laudio           -e "print('audio loaded succesfully')"
 fi
 
 # CUDA tests
