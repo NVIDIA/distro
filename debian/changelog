@@ -1,3 +1,10 @@
+torch7 (0.10.0-1+cuda8.0) trusty; urgency=medium
+  * Updated submodules (substantial CUDNN/fp16 progress)
+  * Relaxed qt and hdf5 dependencies to satisfy Ubuntu 16 install
+  * Rebuilt with CUDA 8.0-45
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Thu, 15 Sep 2016 08:22:00 -0800
+
 torch7 (0.9.99-4+cuda8.0) trusty; urgency=medium
   * Added CCN2 and TDS submodules
 
