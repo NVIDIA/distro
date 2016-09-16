@@ -29,7 +29,7 @@ Depends: ${misc:Depends},${shlibs:Depends},
                liblmdb0 (>=0.9.10-1),libnccl1 (>=1.1.1),
 	       software-properties-common
 Conflicts: torch7, torch, lua-cjson, lua-penlight, lua-filesystem, luarocks, luajit,
-lua-torch-torch7, lua-torch-cwrap, lua-torch-paths, libtorch-th-dev, libtorch-luat-dev
+           lua-torch-torch7, lua-torch-cwrap, lua-torch-paths, libtorch-th-dev, libtorch-luat-dev
 Description: NVidia Torch Bundle (with CUDA). Made for DIGITS.
  Scientific computing framework with wide support for machine learning
  algorithms. It uses Lua as a scripting interface and provides GPU acceleration
