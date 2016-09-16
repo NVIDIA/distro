@@ -34,4 +34,4 @@ fi
 done
 
 cd "${THIS_DIR}"
-./commit.sh
+./commit.sh "Updating submodules"
