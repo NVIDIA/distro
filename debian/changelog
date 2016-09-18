@@ -1,3 +1,9 @@
+torch7 (0.10.1-1+cuda8.0) trusty; urgency=medium
+  * Fixed CUDNN verbose mode bug
+  * added more Lua Debian packages to conflict list
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Sun, 18 Sep 2016 01:22:00 -0800
+
 torch7 (0.10.0-1+cuda8.0) trusty; urgency=medium
   * Updated submodules (substantial CUDNN/fp16 progress)
   * Relaxed qt and hdf5 dependencies to satisfy Ubuntu 16 install
