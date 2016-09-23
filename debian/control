@@ -25,7 +25,7 @@ Depends: ${misc:Depends},${shlibs:Depends},
                ipython,
                cuda-cudart-8-0, cuda-curand-8-0, cuda-cublas-8-0, cuda-license-8-0,
                libcudnn5 (>=5.0.4-1),
-               gcc,
+               gcc, libhdf5-dev,
                liblmdb0 (>=0.9.10-1),libnccl1 (>=1.1.1),
 	       software-properties-common
 Conflicts: torch7, torch, lua-cjson, lua-penlight, lua-filesystem, luarocks, luajit,

@@ -1,3 +1,9 @@
+torch7 (0.10.2-1+cuda8.0) trusty; urgency=medium
+  * Picked up cutorch caching allocator updates and cudnn fixes for fp16/findex
+  * Dependency on hdf5-dev added (instead of no dependency on hdf5)
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Thu, 22 Sep 2016 18:16:00 -0800
+
 torch7 (0.10.1-1+cuda8.0) trusty; urgency=medium
   * Fixed CUDNN verbose mode bug
   * added more Lua Debian packages to conflict list
