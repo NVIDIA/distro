@@ -187,8 +187,6 @@ then
 #NCCL (experimental) support
     cd ${THIS_DIR}/extra/nccl         && $LUAROCKS make nccl-scm-1.rockspec || exit 1
     cd ${THIS_DIR}/extra/cudnn   && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
-    # cuda-convnet2
-    cd ${THIS_DIR}/extra/ccn2    && $LUAROCKS make  ccn2-scm-1.rockspec || exit 1
 fi
 
 export PATH=$OLDPATH # Restore anaconda distribution if we took it out.

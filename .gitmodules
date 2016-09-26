@@ -138,7 +138,3 @@
 	path = extra/tds
 	url = https://github.com/torch/tds.git
         branch = master
-[submodule "extra/ccn2"]
-	path = extra/ccn2
-	url = https://github.com/soumith/cuda-convnet2.torch.git
-	branch = master
