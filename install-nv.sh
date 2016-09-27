@@ -177,7 +177,7 @@ cd ${THIS_DIR}/extra/totem          && $LUAROCKS make rocks/totem-0-0.rockspec |
 # HDF5 filesystem support
 cd ${THIS_DIR}/extra/hdf5           && $LUAROCKS make hdf5-0-0.rockspec || exit 1
 #
-cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make optnet-scm-1.rockspec || exit 1
+cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make rocks/optnet-scm-1.rockspec || exit 1
 
 if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
 then
