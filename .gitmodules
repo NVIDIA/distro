@@ -138,3 +138,6 @@
 	path = extra/tds
 	url = https://github.com/torch/tds.git
         branch = master
+[submodule "extra/optnet"]
+	path = extra/optnet
+	url = https://github.com/fmassa/optimize-net

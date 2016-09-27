@@ -169,13 +169,15 @@ cd ${THIS_DIR}/pkg/qttorch          && $LUAROCKS make rocks/qttorch-scm-1.rocksp
 cd ${THIS_DIR}/extra/threads        && $LUAROCKS make rocks/threads-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/extra/argcheck       && $LUAROCKS make rocks/argcheck-scm-1.rockspec || exit 1
 
-#Support for Protobuf
+# Support for Protobuf
 cd ${THIS_DIR}/extra/lua-pb         && $LUAROCKS make lua-pb-scm-0.rockspec || exit 1
 # Lua Wrapper for LMDB, latest from github (lightningmdb)
 cd ${THIS_DIR}/extra/lmdb           && $LUAROCKS make LMDB_INCDIR=/usr/include LMDB_LIBDIR="${LMDB_LIBDIR}" lightningmdb-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/extra/totem          && $LUAROCKS make rocks/totem-0-0.rockspec || exit 1
-#HDF5 filesystem support
+# HDF5 filesystem support
 cd ${THIS_DIR}/extra/hdf5           && $LUAROCKS make hdf5-0-0.rockspec || exit 1
+#
+cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make optnet-scm-1.rockspec || exit 1
 
 if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
 then
