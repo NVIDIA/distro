@@ -28,7 +28,7 @@
         branch = master
 [submodule "extra/cutorch"]
 	path = extra/cutorch
-	url = https://github.com/torch/cutorch.git
+	url = https://github.com/NVIDIA/cutorch.git
         branch = master
 [submodule "packages/lua-torch-torch7"]
 	path = packages/lua-torch-torch7

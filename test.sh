@@ -35,7 +35,6 @@ th -lnn    -e "nn.test()"
 if [ $(basename $LUA) = "luajit" ]
 then
     $LUA -lsundown         -e "print('sundown loaded succesfully')"
-    $LUA -lsignal          -e "print('signal loaded succesfully')"
 fi
 
 # CUDA tests
@@ -55,6 +54,7 @@ then
     th -lcutorch -e "cutorch.test()"
     th -lcunn  -e "nn.testcuda()"
     th extra/cudnn/test/test.lua
+    th extra/cudnn/test/test_rnn.lua
 else
     echo "CUDA not found"
 fi
