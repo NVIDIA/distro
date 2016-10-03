@@ -140,7 +140,7 @@ then
 fi
 
 echo "Installing core Torch packages"
-
+cd ${THIS_DIR}/extra/luaffifb && $LUAROCKS make luaffi-scm-1.rockspec       || exit 1
 cd ${THIS_DIR}/pkg/sundown   && $LUAROCKS make rocks/sundown-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/pkg/cwrap     && $LUAROCKS make rocks/cwrap-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/pkg/paths     && $LUAROCKS make rocks/paths-scm-1.rockspec   || exit 1
@@ -149,7 +149,6 @@ cd ${THIS_DIR}/pkg/dok       && $LUAROCKS make rocks/dok-scm-1.rockspec     || e
 cd ${THIS_DIR}/exe/trepl     && $LUAROCKS make                              || exit 1
 cd ${THIS_DIR}/pkg/sys       && $LUAROCKS make sys-1.1-0.rockspec           || exit 1
 cd ${THIS_DIR}/pkg/xlua      && $LUAROCKS make xlua-1.0-0.rockspec          || exit 1
-cd ${THIS_DIR}/extra/luaffifb && $LUAROCKS make luaffi-scm-1.rockspec       || exit 1
 cd ${THIS_DIR}/extra/nn      && $LUAROCKS make rocks/nn-scm-1.rockspec      || exit 1
 cd ${THIS_DIR}/extra/graph   && $LUAROCKS make rocks/graph-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/extra/nngraph && $LUAROCKS make                              || exit 1
@@ -169,6 +168,11 @@ cd ${THIS_DIR}/pkg/qttorch          && $LUAROCKS make rocks/qttorch-scm-1.rocksp
 cd ${THIS_DIR}/extra/threads        && $LUAROCKS make rocks/threads-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/extra/argcheck       && $LUAROCKS make rocks/argcheck-scm-1.rockspec || exit 1
 
+cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/moses-1.4.0-1.rockspec
+cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/torch/rocks/master/torchx-scm-1.rockspec
+cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/torch/rocks/master/dpnn-scm-1.rockspec
+cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/torch/rocks/master/rnn-scm-1.rockspec
+
 # Support for Protobuf
 cd ${THIS_DIR}/extra/lua-pb         && $LUAROCKS make lua-pb-scm-0.rockspec || exit 1
 # Lua Wrapper for LMDB, latest from github (lightningmdb)
@@ -179,6 +183,13 @@ cd ${THIS_DIR}/extra/hdf5           && $LUAROCKS make hdf5-0-0.rockspec || exit 
 #
 cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make rocks/optnet-scm-1.rockspec || exit 1
 
+# torchnet: install remaining dependencies directly
+cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/md5-1.2-1.src.rock
+cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/luasocket-3.0rc1-2.src.rock
+cd ${THIS_DIR}/extra/torchnet  && $LUAROCKS make rocks/torchnet-scm-1.rockspec
+#
+
+
 if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
 then
     echo "Found CUDA on your machine. Installing CUDA packages for ${TORCH_CUDA_ARCH_LIST}"
@@ -187,8 +198,10 @@ then
 # Optional CUDA packages
     echo "Found CUDA on your machine. Installing optional CUDA packages"
 #NCCL (experimental) support
-    cd ${THIS_DIR}/extra/nccl         && $LUAROCKS make nccl-scm-1.rockspec || exit 1
-    cd ${THIS_DIR}/extra/cudnn   && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
+    cd ${THIS_DIR}/extra/nccl     && $LUAROCKS make nccl-scm-1.rockspec || exit 1
+    cd ${THIS_DIR}/extra/cudnn    && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
+# external packages
+    cd extra/ctc && ${LUAROCKS} make warp-ctc-scm-1.rockspec
 fi
 
 export PATH=$OLDPATH # Restore anaconda distribution if we took it out.
