@@ -179,6 +179,11 @@ cd ${THIS_DIR}/extra/hdf5           && $LUAROCKS make hdf5-0-0.rockspec || exit 
 #
 cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make rocks/optnet-scm-1.rockspec || exit 1
 
+# torchnet: install remaining dependencies directly
+cd ${THIS_DIR} && $LUAROCKS make  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/md5-1.2-1.src.rock
+cd ${THIS_DIR} && $LUAROCKS make  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/luasocket-3.0rc1-2.src.rock
+cd ${THIS_DIR}/extra/torchnet  && $LUAROCKS make rocks/torchnet-scm-1.rockspec
+
 if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
 then
     echo "Found CUDA on your machine. Installing CUDA packages for ${TORCH_CUDA_ARCH_LIST}"
@@ -187,8 +192,8 @@ then
 # Optional CUDA packages
     echo "Found CUDA on your machine. Installing optional CUDA packages"
 #NCCL (experimental) support
-    cd ${THIS_DIR}/extra/nccl         && $LUAROCKS make nccl-scm-1.rockspec || exit 1
-    cd ${THIS_DIR}/extra/cudnn   && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
+    cd ${THIS_DIR}/extra/nccl     && $LUAROCKS make nccl-scm-1.rockspec || exit 1
+    cd ${THIS_DIR}/extra/cudnn    && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
 fi
 
 export PATH=$OLDPATH # Restore anaconda distribution if we took it out.

@@ -141,3 +141,6 @@
 [submodule "extra/optnet"]
 	path = extra/optnet
 	url = https://github.com/fmassa/optimize-net
+[submodule "extra/torchnet"]
+	path = extra/torchnet
+	url = https://github.com/torchnet/torchnet.git
