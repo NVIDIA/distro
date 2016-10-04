@@ -17,24 +17,33 @@ ENDIF()
 
 include_directories(include)
 
+FIND_PACKAGE(Torch)
+
+MESSAGE(STATUS "Torch found ${Torch_DIR}")
+
 FIND_PACKAGE(CUDA 6.5)
 MESSAGE(STATUS "cuda found ${CUDA_FOUND}")
 
-# need to be at least 30 or __shfl_down in reduce wont compile
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_30,code=sm_30 -O2")
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_35,code=sm_35")
+LIST(APPEND CUDA_NVCC_FLAGS $ENV{TORCH_NVCC_FLAGS})
+# Detect CUDA architecture and get best NVCC flags
+IF(NOT COMMAND CUDA_SELECT_NVCC_ARCH_FLAGS)
+  # need to be at least 30 or __shfl_down in reduce wont compile
+  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_30,code=sm_30 -O2")
+  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_35,code=sm_35")
 
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_50,code=sm_50")
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_52,code=sm_52")
+  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_50,code=sm_50")
+  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_52,code=sm_52")
+ELSE()
+  CUDA_SELECT_NVCC_ARCH_FLAGS(NVCC_FLAGS_EXTRA $ENV{TORCH_CUDA_ARCH_LIST})
+  LIST(APPEND CUDA_NVCC_FLAGS ${NVCC_FLAGS_EXTRA})
+ENDIF()
+
+MESSAGE(STATUS "NVCC flags: ${CUDA_NVCC_FLAGS}")
 
 if (NOT APPLE)
     set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} --std=c++11")
     set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -Xcompiler -fopenmp")
 ENDIF()
-
-FIND_PACKAGE(Torch)
-
-MESSAGE(STATUS "Torch found ${Torch_DIR}")
 
 IF (APPLE)
     EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
@@ -58,7 +67,7 @@ IF (CUDA_FOUND)
     MESSAGE(STATUS "Building shared library with GPU support")
 
     CUDA_ADD_LIBRARY(warpctc SHARED src/ctc_entrypoint.cu src/reduce.cu)
-    IF (!Torch_FOUND) 
+    IF (!Torch_FOUND)
         TARGET_LINK_LIBRARIES(warpctc ${CUDA_curand_LIBRARY})
     ENDIF()
 
@@ -140,5 +149,3 @@ ELSE()
     ENDIF()
 
 ENDIF()
-
-

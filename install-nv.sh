@@ -200,8 +200,8 @@ then
 #NCCL (experimental) support
     cd ${THIS_DIR}/extra/nccl     && $LUAROCKS make nccl-scm-1.rockspec || exit 1
     cd ${THIS_DIR}/extra/cudnn    && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
-# external packages
-    cd extra/ctc && ${LUAROCKS} make warp-ctc-scm-1.rockspec
+# external CUDA packages
+    cd ${THIS_DIR}/extra/ctc && ${LUAROCKS} make torch_binding/rocks/warp-ctc-scm-1.rockspec
 fi
 
 export PATH=$OLDPATH # Restore anaconda distribution if we took it out.
