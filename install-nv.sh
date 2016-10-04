@@ -184,11 +184,11 @@ cd ${THIS_DIR}/extra/hdf5           && $LUAROCKS make hdf5-0-0.rockspec || exit 
 cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make rocks/optnet-scm-1.rockspec || exit 1
 
 # torchnet: install remaining dependencies directly
+
 cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/md5-1.2-1.src.rock
 cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/luasocket-3.0rc1-2.src.rock
 cd ${THIS_DIR}/extra/torchnet  && $LUAROCKS make rocks/torchnet-scm-1.rockspec
 #
-
 
 if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
 then
