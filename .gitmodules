@@ -30,10 +30,6 @@
 	path = extra/cutorch
 	url = https://github.com/NVIDIA/cutorch.git
         branch = master
-[submodule "packages/lua-torch-torch7"]
-	path = packages/lua-torch-torch7
-	url = https://github.com/borisfom/torch7.git
-        branch = master
 [submodule "pkg/sundown"]
 	path = pkg/sundown
 	url = https://github.com/torch/sundown-ffi.git

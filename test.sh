@@ -37,13 +37,7 @@ then
     $LUA -lsundown         -e "print('sundown loaded succesfully')"
 fi
 
-# CUDA tests
-set +e
-path_to_nvcc=$(which nvcc)
-path_to_nvidiasmi=$(which nvidia-smi)
-set -e
-
-if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
+if `$LUA -lcutorch -e ""`
 then
     th -lcutorch -e "print('cutorch loaded succesfully')"
 
