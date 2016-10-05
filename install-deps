@@ -127,6 +127,9 @@ elif [[ "$(uname)" == 'Linux' ]]; then
     elif [[ "$DISTRO" = "amzn" ]]; then
         distribution="amzn"
         amzn_major_version="$VERSION"
+    elif [[ "$DISTRO" == "raspbian" ]]; then
+        distribution="raspbian"
+        debian_major_version="$VERSION"
     else
         echo '==> Only Ubuntu, elementary OS, Fedora, Archlinux and CentOS distributions are supported.'
         exit 1
@@ -134,25 +137,33 @@ elif [[ "$(uname)" == 'Linux' ]]; then
 
     # Install dependencies for Torch:
     if [[ $distribution == 'ubuntu' ]]; then
-        sudo apt-get update
+        if sudo apt-get update ; then
+            echo "Updated successfully."
+        else
+            echo "Some portion of the update is failed"
+        fi
         # python-software-properties is required for apt-add-repository
         sudo apt-get install -y python-software-properties
         echo "==> Found Ubuntu version ${ubuntu_major_version}.xx"
         if [[ $ubuntu_major_version -lt '12' ]]; then
             echo '==> Ubuntu version not supported.'
             exit 1
-        elif [[ $ubuntu_major_version -lt '14' ]]; then
+        elif [[ $ubuntu_major_version -lt '14' ]]; then # 12.xx
             sudo -E add-apt-repository -y ppa:chris-lea/zeromq
-            sudo -E add-apt-repository -y ppa:chris-lea/node.js
-        elif [[ $ubuntu_major_version -lt '15' ]]; then
+        elif [[ $ubuntu_major_version -lt '15' ]]; then # 14.xx
+	    sudo -E apt-get install -y software-properties-common
             sudo -E add-apt-repository -y ppa:jtaylor/ipython
         else
             sudo apt-get install -y software-properties-common \
-                libgraphicsmagick1-dev nodejs npm libfftw3-dev sox libsox-dev \
+                libgraphicsmagick1-dev libfftw3-dev sox libsox-dev \
                 libsox-fmt-all
         fi
 
-        sudo apt-get update
+        if sudo apt-get update ; then
+            echo "Updated successfully."
+        else
+            echo "Some portion of the update is failed"
+        fi
         sudo apt-get install -y build-essential gcc g++ curl \
             cmake libreadline-dev git-core libqt4-dev libjpeg-dev \
             libpng-dev ncurses-dev imagemagick libzmq3-dev gfortran \
@@ -165,16 +176,25 @@ elif [[ "$(uname)" == 'Linux' ]]; then
             sudo apt-get install -y gcc-4.9 libgfortran-4.9-dev g++-4.9
         fi
 
-        if [[ $ubuntu_major_version -lt '14' ]]; then
-            # Install from source after installing git and build-essential
-            install_openblas || true
-        else
-            sudo apt-get install -y libopenblas-dev liblapack-dev
-        fi
-
         if [[ $ubuntu_major_version -lt '15' ]]; then
             sudo apt-get install libqt4-core libqt4-gui
         fi
+
+        install_openblas || true
+
+    elif [[ $distribution == 'raspbian' ]]; then
+        echo "==> Found Raspbian version ${debian_major_version}.xx"
+        if sudo apt-get update ; then
+            echo "Updated successfully."
+        else
+            echo "Some portion of the update is failed"
+        fi
+        sudo apt-get install -y build-essential gcc g++ curl \
+            cmake libreadline-dev git-core libqt4-dev libjpeg-dev \
+            libpng-dev ncurses-dev imagemagick libzmq3-dev gfortran \
+            unzip gnuplot gnuplot-x11 ipython
+
+        install_openblas || true
 
     elif [[ $distribution == 'elementary' ]]; then
         declare -a target_pkgs
@@ -183,21 +203,28 @@ elif [[ "$(uname)" == 'Linux' ]]; then
                       libqt4-dev libjpeg-dev libpng-dev ncurses-dev \
                       imagemagick libzmq3-dev gfortran unzip gnuplot \
                       gnuplot-x11 ipython )
-        sudo apt-get update
+        if sudo apt-get update ; then
+            echo "Updated successfully."
+        else
+            echo "Some portion of the update is failed"
+        fi
         # python-software-properties is required for apt-add-repository
         sudo apt-get install -y python-software-properties
         if [[ $elementary_version == '0.3' ]]; then
             echo '==> Found Ubuntu version 14.xx based elementary installation, installing dependencies'
             sudo apt-get install -y software-properties-common \
-                libgraphicsmagick1-dev nodejs npm libfftw3-dev sox libsox-dev \
+                libgraphicsmagick1-dev libfftw3-dev sox libsox-dev \
                 libsox-fmt-all
 
             sudo -E add-apt-repository -y ppa:jtaylor/ipython
         else
             sudo -E add-apt-repository -y ppa:chris-lea/zeromq
-            sudo -E add-apt-repository -y ppa:chris-lea/node.js
         fi
-        sudo apt-get update
+        if sudo apt-get update ; then
+            echo "Updated successfully."
+        else
+            echo "Some portion of the update is failed"
+        fi
         sudo apt-get install -y "${target_pkgs[@]}"
 
         install_openblas || true
@@ -230,7 +257,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
         if [[ $fedora_major_version == '20' ]]; then
             sudo yum install -y cmake curl readline-devel ncurses-devel \
                                 gcc-c++ gcc-gfortran git gnuplot unzip \
-                                nodejs npm libjpeg-turbo-devel libpng-devel \
+                                libjpeg-turbo-devel libpng-devel \
                                 ImageMagick GraphicsMagick-devel fftw-devel \
                                 sox-devel sox zeromq3-devel \
                                 qt-devel qtwebkit-devel sox-plugins-freeworld \
@@ -241,16 +268,15 @@ elif [[ "$(uname)" == 'Linux' ]]; then
             #sox-plugins-freeworld is not yet available in repos for F22
             sudo dnf install -y make cmake curl readline-devel ncurses-devel \
                                 gcc-c++ gcc-gfortran git gnuplot unzip \
-                                nodejs npm libjpeg-turbo-devel libpng-devel \
+                                libjpeg-turbo-devel libpng-devel \
                                 ImageMagick GraphicsMagick-devel fftw-devel \
                                 sox-devel sox qt-devel qtwebkit-devel \
                                 python-ipython czmq czmq-devel
             install_openblas || true
         elif [[ $fedora_major_version == '24' ]]; then
-            # Using DNF, but no longer installing npm since that comes with nodejs now.
             sudo dnf install -y make cmake curl readline-devel ncurses-devel \
                                 gcc-c++ gcc-gfortran git gnuplot unzip \
-                                nodejs libjpeg-turbo-devel libpng-devel \
+                                libjpeg-turbo-devel libpng-devel \
                                 ImageMagick GraphicsMagick-devel fftw-devel \
                                 sox-devel sox qt-devel qtwebkit-devel \
                                 python-ipython czmq czmq-devel
@@ -264,7 +290,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
             sudo yum install -y epel-release # a lot of things live in EPEL
             sudo yum install -y make cmake curl readline-devel ncurses-devel \
                                 gcc-c++ gcc-gfortran git gnuplot unzip \
-                                nodejs npm libjpeg-turbo-devel libpng-devel \
+                                libjpeg-turbo-devel libpng-devel \
                                 ImageMagick GraphicsMagick-devel fftw-devel \
                                 sox-devel sox zeromq3-devel \
                                 qt-devel qtwebkit-devel sox-plugins-freeworld
@@ -277,7 +303,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
     elif [[ $distribution == 'amzn' ]]; then
         sudo yum install -y cmake curl readline-devel ncurses-devel \
                             gcc-c++ gcc-gfortran git gnuplot unzip \
-                            nodejs npm libjpeg-turbo-devel libpng-devel \
+                            libjpeg-turbo-devel libpng-devel \
                             ImageMagick GraphicsMagick-devel fftw-devel \
                             libgfortran python27-pip git openssl-devel
 
@@ -294,7 +320,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
 
 elif [[ "$(uname)" == 'FreeBSD' ]]; then
     pkg install ImageMagick cmake curl fftw3 git gnuplot libjpeg-turbo \
-        libzmq3 ncurses node npm openblas openssl png py27-ipython \
+        libzmq3 ncurses openblas openssl png py27-ipython \
         py27-pip qt4-corelib qt4-gui readline unzip
 
 else
