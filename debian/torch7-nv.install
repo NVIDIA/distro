@@ -31,4 +31,5 @@ usr/lib/libluaT.so.0
 usr/lib/libluajit.so
 usr/lib/libthreadsmain.so
 usr/lib/libTH.so
+usr/lib/libTH.so.0
 usr/lib/libqtlua.so

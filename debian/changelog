@@ -1,3 +1,15 @@
+torch7 (0.10.5-1+cuda8.0) trusty; urgency=medium
+  * Added torchnet submodule
+  * Installing rnn and cdc rocks
+  * Updated modules
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Sun, 03 Sep 2016 8:00:00 -0800
+
+torch7 (0.10.4-1+cuda8.0) trusty; urgency=medium
+  * Switched to upstream version of cudnn for the release
+  * cudnn: added change to follow Torch FP16 pseudo override
+  * Updated modules
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Thu, 30 Sep 2016 8:00:00 -0800
+
 torch7 (0.10.3-1+cuda8.0) trusty; urgency=medium
   * Picked up cutorch caching allocator updates, this time for real
   * cudnn: changes for sticky modes (setMode) to work correctly

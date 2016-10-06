@@ -28,12 +28,8 @@
         branch = master
 [submodule "extra/cutorch"]
 	path = extra/cutorch
-	url = https://github.com/torch/cutorch.git
-        branch = master
-[submodule "packages/lua-torch-torch7"]
-	path = packages/lua-torch-torch7
-	url = https://github.com/borisfom/torch7.git
-        branch = master
+	url = https://github.com/NVIDIA/cutorch.git
+        branch = fp16
 [submodule "pkg/sundown"]
 	path = pkg/sundown
 	url = https://github.com/torch/sundown-ffi.git
@@ -73,7 +69,7 @@
 [submodule "extra/cudnn"]
 	path = extra/cudnn
 	url = https://github.com/NVIDIA/cudnn.torch.git
-        branch = master
+        branch = fp16
 [submodule "exe/trepl"]
 	path = exe/trepl
 	url = https://github.com/torch/trepl.git
@@ -141,3 +137,6 @@
 [submodule "extra/optnet"]
 	path = extra/optnet
 	url = https://github.com/fmassa/optimize-net
+[submodule "extra/torchnet"]
+	path = extra/torchnet
+	url = https://github.com/torchnet/torchnet.git

@@ -35,16 +35,9 @@ th -lnn    -e "nn.test()"
 if [ $(basename $LUA) = "luajit" ]
 then
     $LUA -lsundown         -e "print('sundown loaded succesfully')"
-    $LUA -lsignal          -e "print('signal loaded succesfully')"
 fi
 
-# CUDA tests
-set +e
-path_to_nvcc=$(which nvcc)
-path_to_nvidiasmi=$(which nvidia-smi)
-set -e
-
-if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
+if `$LUA -lcutorch -e ""`
 then
     th -lcutorch -e "print('cutorch loaded succesfully')"
 
@@ -55,6 +48,7 @@ then
     th -lcutorch -e "cutorch.test()"
     th -lcunn  -e "nn.testcuda()"
     th extra/cudnn/test/test.lua
+    th extra/cudnn/test/test_rnn.lua
 else
     echo "CUDA not found"
 fi
