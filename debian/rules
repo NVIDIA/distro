@@ -37,6 +37,7 @@ override_dh_auto_install:
 	mkdir -p ${CURDIR}/debian/tmp
 	ln -s  ${INSTROOT} ${CURDIR}/debian/tmp
 	PREFIX="${INSTROOT}" $(CURDIR)/install-nv.sh -v -b -A
+	sed -i -e 's|/usr/include|/usr/include/hdf5/serial|' -e 's|/usr/lib/x86_64-linux-gnu/libhdf5.so|/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so|' ${INSTROOT}/share/lua/5.1/hdf5/config.lua
 
 override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
