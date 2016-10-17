@@ -1,5 +1,6 @@
 torch7 (0.10.6-1+cuda8.0) trusty; urgency=medium
   * cudnn and cutorch fp16 updates
+  * cutorch threading updates
   * lmdb rolled back to 0.9.18.1-1
   * hdf5 .deb fixes for Ubuntu 16.04
   * Updated modules
