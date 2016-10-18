@@ -1,3 +1,9 @@
+torch7 (0.10.7-1+cuda8.0) trusty; urgency=medium
+  * Fixed LUA_CPATH issue in torch-activate
+  * cutorch picked up
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Tue, 18 Oct 2016 14:00:00 -0800
+
 torch7 (0.10.6-1+cuda8.0) trusty; urgency=medium
   * cudnn and cutorch fp16 updates
   * cutorch threading updates
