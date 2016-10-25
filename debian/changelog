@@ -1,13 +1,30 @@
+torch7 (0.10.7-1+cuda8.0) trusty; urgency=medium
+  * Fixed LUA_CPATH issue in torch-activate
+  * cutorch picked up
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Tue, 18 Oct 2016 14:00:00 -0800
+
+torch7 (0.10.6-1+cuda8.0) trusty; urgency=medium
+  * cudnn and cutorch fp16 updates
+  * cutorch threading updates
+  * lmdb rolled back to 0.9.18.1-1
+  * hdf5 .deb fixes for Ubuntu 16.04
+  * Updated modules
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Sat, 15 Oct 2016 8:00:00 -0800
+
 torch7 (0.10.5-1+cuda8.0) trusty; urgency=medium
   * Added torchnet submodule
   * Installing rnn and cdc rocks
   * Updated modules
- -- Boris Fomitchev <bfomitchev@nvidia.com>  Sun, 03 Sep 2016 8:00:00 -0800
+
+ -- Boris Fomitchev <bfomitchev@nvidia.com>  Sun, 04 Oct 2016 8:00:00 -0800
 
 torch7 (0.10.4-1+cuda8.0) trusty; urgency=medium
   * Switched to upstream version of cudnn for the release
   * cudnn: added change to follow Torch FP16 pseudo override
   * Updated modules
+
  -- Boris Fomitchev <bfomitchev@nvidia.com>  Thu, 30 Sep 2016 8:00:00 -0800
 
 torch7 (0.10.3-1+cuda8.0) trusty; urgency=medium

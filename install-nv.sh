@@ -56,6 +56,9 @@ if [[ $(echo $PATH | grep conda) ]]; then
     export PATH=$(echo $PATH | tr ':' '\n' | grep -v "conda[2-9]\?/bin" | grep -v "conda[2-9]\?/lib" | grep -v "conda[2-9]\?/include" | uniq | tr '\n' ':')
 fi
 
+#unset any previous LUA_CPATH
+unset LUA_CPATH
+
 echo "Prefix set to $PREFIX"
 
 if [[ `uname` == 'Linux' ]]; then
@@ -236,7 +239,7 @@ $setup_lua_env_cmd
 export PATH=$PREFIX/bin:\$PATH
 export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/local/lib:\$LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/local/lib:\$DYLD_LIBRARY_PATH
-export LUA_CPATH="$PREFIX/lib/?.so;$PREFIX/local/lib/?.so;${LUA_CPATH}"
+export LUA_CPATH="$PREFIX/lib/?.so;$PREFIX/local/lib/?.so;\${LUA_CPATH}"
 EOF
 chmod +x $PREFIX/bin/torch-activate
 
