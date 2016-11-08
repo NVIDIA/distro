@@ -140,3 +140,6 @@
 [submodule "extra/torchnet"]
 	path = extra/torchnet
 	url = https://github.com/torchnet/torchnet.git
+[submodule "extra/rnn"]
+	path = extra/rnn
+	url = https://github.com/Element-Research/rnn
