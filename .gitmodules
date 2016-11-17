@@ -29,7 +29,7 @@
 [submodule "extra/cutorch"]
 	path = extra/cutorch
 	url = https://github.com/NVIDIA/torch-cutorch.git
-        branch = cpu_half
+        branch = android
 [submodule "pkg/sundown"]
 	path = pkg/sundown
 	url = https://github.com/torch/sundown-ffi.git
@@ -37,7 +37,7 @@
 [submodule "pkg/torch"]
 	path = pkg/torch
 	url = https://github.com/borisfom/torch7.git
-        branch = master
+        branch = android
 [submodule "pkg/qttorch"]
 	path = pkg/qttorch
 	url = https://github.com/torch/qttorch.git

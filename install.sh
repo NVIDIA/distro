@@ -133,9 +133,15 @@ if [ -x "$path_to_nvcc" ]
 then
     echo "Found CUDA on your machine. Installing optional CUDA packages"
     cd ${THIS_DIR}/extra/cudnn   && $PREFIX/bin/luarocks make cudnn-scm-1.rockspec
+    cd ${THIS_DIR}/extra/cunnx   && $PREFIX/bin/luarocks make rocks/cunnx-scm-1.rockspec
 fi
 
 export PATH=$OLDPATH # Restore anaconda distribution if we took it out.
+
+if [[ $SKIP_RC == 1 ]]; then
+  exit 0
+fi
+
 
 # Add C libs to LUA_CPATH
 if [[ `uname` == "Darwin" ]]; then
@@ -152,10 +158,6 @@ export DYLD_LIBRARY_PATH=$PREFIX/lib:\$DYLD_LIBRARY_PATH
 export LUA_CPATH='$CLIB_LUA_CPATH;'\$LUA_CPATH
 EOF
 chmod +x $PREFIX/bin/torch-activate
-
-if [[ $SKIP_RC == 1 ]]; then
-  exit 0
-fi
 
 RC_FILE=0
 DEFAULT=yes
