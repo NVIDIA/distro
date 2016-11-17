@@ -186,32 +186,9 @@ cd ${THIS_DIR}/extra/tds            && $LUAROCKS make rocks/tds-scm-1.rockspec |
 cd ${THIS_DIR}/pkg/gnuplot          && $LUAROCKS make rocks/gnuplot-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/exe/env              && $LUAROCKS make || exit 1
 cd ${THIS_DIR}/extra/nnx            && $LUAROCKS make nnx-0.1-1.rockspec || exit 1
-cd ${THIS_DIR}/exe/qtlua            && $LUAROCKS make rocks/qtlua-scm-1.rockspec || exit 1
-cd ${THIS_DIR}/pkg/qttorch          && $LUAROCKS make rocks/qttorch-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/extra/threads        && $LUAROCKS make rocks/threads-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/extra/argcheck       && $LUAROCKS make rocks/argcheck-scm-1.rockspec || exit 1
 
-cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/moses-1.4.0-1.rockspec
-cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/torch/rocks/master/torchx-scm-1.rockspec
-cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/torch/rocks/master/dpnn-scm-1.rockspec
-cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/torch/rocks/master/rnn-scm-1.rockspec
-
-# Support for Protobuf
-cd ${THIS_DIR}/extra/lua-pb         && $LUAROCKS make lua-pb-scm-0.rockspec || exit 1
-# Lua Wrapper for LMDB, latest from github (lightningmdb)
-cd ${THIS_DIR}/extra/lmdb           && $LUAROCKS make LMDB_INCDIR=/usr/include LMDB_LIBDIR="${LMDB_LIBDIR}" lightningmdb-scm-1.rockspec || exit 1
-cd ${THIS_DIR}/extra/totem          && $LUAROCKS make rocks/totem-0-0.rockspec || exit 1
-# HDF5 filesystem support
-cd ${THIS_DIR}/extra/hdf5           && $LUAROCKS make hdf5-0-0.rockspec || exit 1
-#
-cd ${THIS_DIR}/extra/optnet         && $LUAROCKS make rocks/optnet-scm-1.rockspec || exit 1
-
-# torchnet: install remaining dependencies directly
-
-cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/md5-1.2-1.src.rock
-cd /tmp && $LUAROCKS install  https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/luasocket-3.0rc1-2.src.rock
-cd ${THIS_DIR}/extra/torchnet  && $LUAROCKS make rocks/torchnet-scm-1.rockspec
-#
 
 if [ -x "$path_to_nvcc" ] || [ -x "$path_to_nvidiasmi" ]
 then
@@ -220,8 +197,6 @@ then
     cd ${THIS_DIR}/extra/cunn     && $LUAROCKS  make rocks/cunn-scm-1.rockspec    || exit 1
 # Optional CUDA packages
     echo "Found CUDA on your machine. Installing optional CUDA packages"
-#NCCL (experimental) support
-    cd ${THIS_DIR}/extra/nccl     && $LUAROCKS make nccl-scm-1.rockspec || exit 1
     cd ${THIS_DIR}/extra/cudnn    && $LUAROCKS make cudnn-scm-1.rockspec || exit 1
 # external CUDA packages
     cd ${THIS_DIR}/extra/ctc && ${LUAROCKS} make torch_binding/rocks/warp-ctc-scm-1.rockspec
