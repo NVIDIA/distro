@@ -29,7 +29,7 @@
 [submodule "extra/cutorch"]
 	path = extra/cutorch
 	url = https://github.com/NVIDIA/cutorch.git
-        branch = fp16
+        branch = halconv
 [submodule "pkg/sundown"]
 	path = pkg/sundown
 	url = https://github.com/torch/sundown-ffi.git
