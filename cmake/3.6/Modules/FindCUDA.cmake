@@ -822,13 +822,6 @@ if(CUDA_USE_STATIC_CUDA_RUNTIME)
       unset(CMAKE_THREAD_PREFER_PTHREAD)
     endif()
   endif()
-  if (NOT APPLE AND CUDA_VERSION VERSION_LESS "7.0")
-    # Before CUDA 7.0, there was librt that has things such as, clock_gettime, shm_open, and shm_unlink.
-    find_library(CUDA_rt_LIBRARY rt)
-    if (NOT CUDA_rt_LIBRARY)
-      message(WARNING "Expecting to find librt for libcudart_static, but didn't find it.")
-    endif()
-  endif()
 endif()
 
 # CUPTI library showed up in cuda toolkit 4.0
@@ -850,9 +843,6 @@ if(CUDA_BUILD_EMULATION AND CUDA_CUDARTEMU_LIBRARY)
   list(APPEND CUDA_LIBRARIES ${CUDA_CUDARTEMU_LIBRARY})
 elseif(CUDA_USE_STATIC_CUDA_RUNTIME AND CUDA_cudart_static_LIBRARY)
   list(APPEND CUDA_LIBRARIES ${CUDA_cudart_static_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
-  if (CUDA_rt_LIBRARY)
-    list(APPEND CUDA_LIBRARIES ${CUDA_rt_LIBRARY})
-  endif()
   if(APPLE)
     # We need to add the default path to the driver (libcuda.dylib) as an rpath, so that
     # the static cuda runtime can find it at runtime.
