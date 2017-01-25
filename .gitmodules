@@ -69,7 +69,6 @@
 [submodule "extra/cudnn"]
 	path = extra/cudnn
 	url = https://github.com/NVIDIA/cudnn.torch.git
-        branch = fp16
 [submodule "exe/trepl"]
 	path = exe/trepl
 	url = https://github.com/torch/trepl.git
